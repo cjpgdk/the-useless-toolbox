@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Caesar cipher</title>
+    <script src="caesar.js"></script>
+</head>
+<body>
+<h3 id="enc"></h3>
+<h3 id="dec"></h3>
+<script>
+    (function() {
+        let Caesar_Cipher = new CaesarCipher(1);
+        let enc = Caesar_Cipher.encrypt("Hello, world!");
+        document.querySelector('#enc').innerHTML = enc;
+        let dec = Caesar_Cipher.decrypt(enc);
+        document.querySelector('#dec').innerHTML = dec;
+    })();
+</script>
+</body>
+</html>

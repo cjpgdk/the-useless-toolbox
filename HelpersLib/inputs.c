@@ -59,8 +59,11 @@ char *read_input()
     int length = 0;
 
     // output buffer
-    char *outbuffer = NULL;
-    outbuffer = malloc(2);
+    char *outbuffer = (char *)malloc(2 * sizeof(char));
+    if (outbuffer == NULL)
+    {
+        return NULL;
+    }
 
     // read input: https://linux.die.net/man/3/fgetc
     char c;

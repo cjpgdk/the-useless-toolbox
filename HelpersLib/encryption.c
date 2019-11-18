@@ -25,17 +25,49 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+#define _CRT_SECURE_NO_WARNINGS
 
+#include <stdlib.h>
+#include <string.h>
 #include <ctype.h>
 #include <stdbool.h>
 
 #include "encryption.h"
 
+/**
+ * caesar decode a string using key
+ */
+char *caesar_decode(const char *cstr, int key)
+{
+    return caesar_encode(cstr, -key);
+}
+
+/**
+ * caesar encode a string using key
+ */
+char *caesar_encode(const char *cstr, int key)
+{
+    size_t len = strlen(cstr);
+    char *str = (char *)malloc((len + 1) * sizeof(char));
+    if (str == NULL)
+    {
+        return NULL;
+    }
+    strcpy(str, cstr);
+    for (size_t i = 0; i < len; i++)
+    {
+        if (isalpha(str[i]))
+        {
+            str[i] = caesar_encode_char(str[i], key);
+        }
+    }
+    return str;
+}
 
 /**
  * caesar decode : Shift char 'c' with key 'n'.
  */
-char caesar_decode_char(char c, int n)
+char caesar_decode_char(const char c, int n)
 {
     return caesar_encode_char(c, -n);
 }
@@ -44,47 +76,30 @@ char caesar_decode_char(char c, int n)
 /**
  * caesar encode : Shift char 'c' with key 'n'.
  */
-char caesar_encode_char(char c, int n)
+char caesar_encode_char(const char c, int n)
 {
-    int a = islower(c) ? 'a' : 'A';
-    return a + ((shift(c) + n) % 26);
-}
+    n = n % 26;
+    int _c = shift(c) + n;
 
-/**
- * caesar decode : Shift char 'c' with key 'n'.
- *
- * This is the first function i made to create a caesar encoding.
- * it works but function 'caesar_encode' is the correct way.
- */
-char caesar_decode_char1(char c, int n)
-{
-    return caesar_encode_char1(c, -n);
-}
-
-/**
- * caesar encode : Shift char 'c' with key 'n'.
- *
- * This is the first function i made to create a caesar encoding.
- * it works but function 'caesar_encode' is the correct way.
- */
-char caesar_encode_char1(char c, int n)
-{
-    bool lc = islower(c);
-    char a = (lc ? 'a' : 'A');
-    char z = (lc ? 'z' : 'Z');
-    int ch = c + n;
-    while (ch > z)
+    while (_c < 0)
     {
-        ch = a + (ch - (z + 1));
+        _c = _c + 26;
     }
-    return ch;
+
+    while (_c > 25)
+    {
+        _c = _c - 26;
+    }
+
+    int a = islower(c) ? 'a' : 'A';
+    return (a + _c);
 }
 
 
-/*
+/**
  * shift the char code into a number between 0-25 
  */
-int shift(char c)
+int shift(const char c)
 {
     char l = tolower(c);
     if (!isalpha(l))

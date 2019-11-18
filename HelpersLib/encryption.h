@@ -29,33 +29,29 @@
 #ifndef _ENC_HELPER_H
 #define _ENC_HELPER_H
 
- /*
-  * shift the char code into a number between 0-25
-  */
-int shift(char c);
+/**
+ * caesar decode a string using key
+ */
+char *caesar_decode(const char *cstr, int key);
+
+/**
+ * caesar encode a string using key
+ */
+char *caesar_encode(const char *cstr, int key);
 
 /**
  * caesar encode : Shift char 'c' with key 'n'.
- * This one uses modular arithmetic
  */
-char caesar_encode_char(char c, int n);
+char caesar_encode_char(const char c, int n);
 
 /**
  * caesar decode : Shift char 'c' with key 'n'.
- * This one uses modular arithmetic
  */
-char caesar_decode_char(char c, int n);
+char caesar_decode_char(const char c, int n);
 
 /**
- * caesar encode : Shift char 'c' with key 'n'.
- * This one uses a while loop to get the shifted char code.
+ * shift the char code into a number between 0-25
  */
-char caesar_encode_char1(char c, int n);
-
-/**
- * caesar decode : Shift char 'c' with key 'n'.
- * This one uses a while loop to get the shifted char code.
- */
-char caesar_decode_char1(char c, int n);
+int shift(const char c);
 
 #endif

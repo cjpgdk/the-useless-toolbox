@@ -2,6 +2,21 @@
 CS50x, 2019: Problem Set 2 (caesar)
 
 C app created for 'CS50's Introduction to Computer Science' via edX.og.
+
+Modified to take additional arguments.
+
+DEFAULT:
+./caesar KEY
+ - Take console input and encode with KEY
+ - To decode instead of encode use -KEY (DASH)KEY
+ - EG. encode ./caesar 123
+ - EG. decode ./caesar -123
+
+ENCODE File:
+./caesar KEY /path/to/file.txt
+
+DECODE File:
+./caesar -KEY /path/to/file.txt
 */
 
 #include <inputs.h>
@@ -11,58 +26,75 @@ C app created for 'CS50's Introduction to Computer Science' via edX.og.
 #include <ctype.h>
 #include <stdlib.h>
 
+// check the key.
+int check_key(const char *key);
 // define function found later in this file.
-int print_usage(char* binary_name);
+int print_usage(char *binary_name);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-    // check the args length
-    if (argc != 2)
+    // we miust have 2 or 3 args!
+    if(argc != 2 && argc != 3)
     {
+        // invalid show help.
         return print_usage(argv[0]);
     }
 
     // check the argument only contains digits
-    for (int i = 0, n = strlen(argv[1]); i < n; i++)
+    if (check_key(argv[1]) == 0)
     {
-        // first char is '-'
-        if (i == 0 && argv[1][i] != '-' && !isdigit(argv[1][i]))
-        {
-            // not -, and not 0 - 9 so exit.
-            return print_usage(argv[0]);
-        }
-        else if (i != 0 && !isdigit(argv[1][i]))
-        {
-            // not 0 - 9, so exit.
-            return print_usage(argv[0]);
-        }
+        // not valid show help.
+        return print_usage(argv[0]);
     }
 
-    // convert argument to int.
+    // convert key argument to int.
     int key = atoi(argv[1]);
 
-    // collect user input plaintext
-    char *plaintext = input_promt("plaintext : ");
-    printf("ciphertext: ");
-
-    for (int i = 0, n = strlen(plaintext); i < n; i++)
+    // check the args length
+    if (argc == 2)
     {
-        if (isalpha(plaintext[i]))
+        // default promt for input.
+        char *plaintext = input_promt("plaintext : ");
+        if (plaintext == NULL)
         {
-            printf("%c", caesar_encode_char(plaintext[i], key));
+            printf("Not input!\n");
+            return;
         }
-        else
-        {
-            printf("%c", plaintext[i]);
-        }
+
+        char *str = caesar_encode(plaintext, key);
+        printf("ciphertext: %s\n", str);
+        free(plaintext);
+        free(str);
     }
-    printf("\n");
-    free(plaintext);
+    else if (argc == 3)
+    {
+        printf("File: %s\n", argv[2]);
+    }
 }
 
 // print app usage and return 1 as exit code.
-int print_usage(char* binary_name)
+int print_usage(char *binary_name)
 {
-    printf("Usage: %s key\n", binary_name);
+    printf("Usage: %s key [File]\n", binary_name);
+    return 1;
+}
+
+// check the key.
+int check_key(const char *key)
+{
+    for (size_t i = 0, n = strlen(key); i < n; i++)
+    {
+        // first char is '-'
+        if (i == 0 && key[i] != '-' && !isdigit(key[i]))
+        {
+            // not -, and not 0 - 9 so exit.
+            return 0;
+        }
+        else if (i != 0 && !isdigit(key[i]))
+        {
+            // not 0 - 9, so exit.
+            return 0;
+        }
+    }
     return 1;
 }

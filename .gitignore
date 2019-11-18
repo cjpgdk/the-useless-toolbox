@@ -3,3 +3,5 @@
 *.idb
 .idea/
 *.vcxproj.*.txt
+!*.exe
+C/bin/

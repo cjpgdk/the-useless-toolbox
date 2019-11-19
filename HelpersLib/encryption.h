@@ -66,9 +66,4 @@ char caesar_encode_char(const char c, int n);
  */
 char caesar_decode_char(const char c, int n);
 
-/**
- * shift the char code into a number between 0-25
- */
-int shift(const char c);
-
 #endif

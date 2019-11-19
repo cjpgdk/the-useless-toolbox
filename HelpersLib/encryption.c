@@ -35,7 +35,55 @@
 #include "encryption.h"
 
 /**
+ * vigenere encode/decode
+ * returns a pointer to the encoded string
+ */
+char *vigenere(const char *cstr, const char *keyword, int decode)
+{
+    size_t len = strlen(cstr);
+    char* str = (char*)malloc((len + 1) * sizeof(char));
+    if (str == NULL)
+    {
+        return NULL;
+    }
+    strcpy(str, cstr);
+
+    size_t keyword_length = strlen(keyword);
+
+    for (size_t i = 0, j = 0, n = len; i < n; i++)
+    {
+        if (isalpha(str[i]))
+        {
+            str[i] = vigenere_encode_char(str[i], shift(keyword[j]) * (decode == 1 ? -1 : 1));
+            if (keyword_length == ++j)
+            {
+                j = 0;
+            }
+        }
+    }
+
+    return str;
+}
+
+/**
+ * vigenere decode : Shift char 'c' with key 'n'.
+ */
+char vigenere_decode_char(const char c, int n)
+{
+    return caesar_encode_char(c, -n);
+}
+
+/**
+ * vigenere decode : Shift char 'c' with key 'n'.
+ */
+char vigenere_encode_char(const char c, int n)
+{
+    return caesar_encode_char(c, n);
+}
+
+/**
  * caesar decode a string using key
+ * returns a pointer to the encoded string
  */
 char *caesar_decode(const char *cstr, int key)
 {
@@ -44,6 +92,7 @@ char *caesar_decode(const char *cstr, int key)
 
 /**
  * caesar encode a string using key
+ * returns a pointer to the encoded string
  */
 char *caesar_encode(const char *cstr, int key)
 {
@@ -78,6 +127,11 @@ char caesar_decode_char(const char c, int n)
  */
 char caesar_encode_char(const char c, int n)
 {
+    if (!isalpha(c))
+    {
+        return c;
+    }
+
     n = n % 26;
     int _c = shift(c) + n;
 

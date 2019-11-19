@@ -30,12 +30,29 @@
 #define _ENC_HELPER_H
 
 /**
+ * vigenere encode/decode
+ * returns a pointer to the encoded string
+ */
+char* vigenere(const char *cstr, const char* keyword, int decode);
+
+/**
+ * vigenere decode : Shift char 'c' with key 'n'.
+ */
+char vigenere_decode_char(const char c, int n);
+/**
+ * vigenere decode : Shift char 'c' with key 'n'.
+ */
+char vigenere_encode_char(const char c, int n);
+
+/**
  * caesar decode a string using key
+ * returns a pointer to the encoded string
  */
 char *caesar_decode(const char *cstr, int key);
 
 /**
  * caesar encode a string using key
+ * returns a pointer to the encoded string
  */
 char *caesar_encode(const char *cstr, int key);
 

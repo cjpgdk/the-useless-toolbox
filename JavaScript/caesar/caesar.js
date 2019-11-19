@@ -50,12 +50,22 @@ class CaesarCipher {
      * @returns {string}
      */
     caesar(l, k) {
-        let a = this.isLower(l) ? "a".charCodeAt(0) : "A".charCodeAt(0);
+        k = k % 26;
         let ch = this.shift(l);
-        if (ch > 0 && ch <26) {
-            return String.fromCharCode((a + (ch + k) % 26));
+        if(ch < 0 || ch > 25) {
+            return l;
         }
-        return l;
+        ch = ch + k;
+        while (ch < 0)
+        {
+            ch = ch + 26;
+        }
+        while (ch > 25)
+        {
+            ch = ch - 26;
+        }
+        let a = this.isLower(l) ? "a".charCodeAt(0) : "A".charCodeAt(0);
+        return String.fromCharCode(a + ch);
     }
 
     /**

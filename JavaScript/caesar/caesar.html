@@ -6,12 +6,13 @@
     <script src="caesar.js"></script>
 </head>
 <body>
+<h3 id="input">Hello, world! - ABCDEFGHIJKLMNOPQRSTUVXYZ - abcdefghijklmnopqrstuvxyz</h3>
 <h3 id="enc"></h3>
 <h3 id="dec"></h3>
 <script>
     (function() {
         let Caesar_Cipher = new CaesarCipher(1);
-        let enc = Caesar_Cipher.encrypt("Hello, world!");
+        let enc = Caesar_Cipher.encrypt(document.querySelector('#input').innerHTML);
         document.querySelector('#enc').innerHTML = enc;
         let dec = Caesar_Cipher.decrypt(enc);
         document.querySelector('#dec').innerHTML = dec;

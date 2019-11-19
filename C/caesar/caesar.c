@@ -18,13 +18,14 @@ ENCODE File:
 DECODE File:
 ./caesar -KEY /path/to/file.txt
 */
-
+#define _CRT_SECURE_NO_WARNINGS
 #include <inputs.h>
 #include <encryption.h>
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include "growablestring.h"
 
 // check the key.
 int check_key(const char *key);
@@ -68,7 +69,45 @@ int main(int argc, char *argv[])
     }
     else if (argc == 3)
     {
-        printf("File: %s\n", argv[2]);
+        printf("Encoding file %s\n", argv[2]);
+        // open the file
+        FILE* fileptr = fopen(argv[2], "r");
+        // check that it's open
+        if (fileptr == NULL)
+        {
+            printf("Could not open %s.\n", argv[2]);
+            return 2;
+        }
+        growable_string_t gstr = growable_string_new(1);
+        char c;
+        // loop every char and encode it!
+        while ((c = fgetc(fileptr)) != EOF)
+        {
+            if (isalpha(c))
+            {
+                c = caesar_encode_char(c, key);
+            }
+            // append to temp string
+            growable_string_append_char(gstr, c);
+
+        }
+        // close the handle
+        fclose(fileptr);
+
+        printf("Writing file %s.\n", argv[2]);
+
+        // open the file
+        fileptr = fopen(argv[2], "w");
+        if (fileptr == NULL)
+        {
+            printf("Could not open %s\n", argv[2]);
+            return 2;
+        }
+        // dump the string!
+        fwrite(gstr->s, sizeof(char), gstr->length, fileptr);
+        // release memory
+        growable_string_delete(gstr);
+        fclose(fileptr);
     }
 }
 

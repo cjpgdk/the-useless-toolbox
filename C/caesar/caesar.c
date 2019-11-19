@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
         if (plaintext == NULL)
         {
             printf("Not input!\n");
-            return;
+            return 2;
         }
 
         char *str = caesar_encode(plaintext, key);
@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
         if (fileptr == NULL)
         {
             printf("Could not open %s.\n", argv[2]);
-            return 2;
+            return 3;
         }
         growable_string_t gstr = growable_string_new(1);
         char c;
@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
         if (fileptr == NULL)
         {
             printf("Could not open %s\n", argv[2]);
-            return 2;
+            return 3;
         }
         // dump the string!
         fwrite(gstr->s, sizeof(char), gstr->length, fileptr);

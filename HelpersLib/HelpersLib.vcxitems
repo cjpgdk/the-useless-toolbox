@@ -15,10 +15,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)encryption.c" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)growablestring.c" />
     <ClCompile Include="$(MSBuildThisFileDirectory)inputs.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)encryption.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)growablestring.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)inputs.h" />
   </ItemGroup>
 </Project>

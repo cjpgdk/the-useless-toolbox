@@ -1,6 +1,7 @@
 
+ARCH=`arch`
 HELPERSLIB_DIR=../../HelpersLib
-TOOLSET_DIR=../../ToolSet
+TOOLSET_DIR=../../ToolSet/${ARCH}
 CWD=`pwd`
 #OUTPUT_DIR=../bin/
 OUTPUT_DIR=${TOOLSET_DIR}

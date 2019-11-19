@@ -1,9 +1,11 @@
 
-OUTPUT_DIR=../ToolSet
+ARCH=`arch`
+OUTPUT_DIR=../ToolSet/${ARCH}
 
 all: inputs encryption growablestring
 	ar ruv helperslib.a inputs.o encryption.o growablestring.o
 	ranlib helperslib.a
+	
 	mkdir -p ${OUTPUT_DIR}/lib
 	mkdir -p ${OUTPUT_DIR}/include
 	cp -f helperslib.a ${OUTPUT_DIR}/lib

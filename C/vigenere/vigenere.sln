@@ -8,6 +8,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HelpersLib", "..\..\HelpersLib\HelpersLib.vcxitems", "{C62111D4-FC99-40C3-A256-FBD9B577061A}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\..\HelpersLib\HelpersLib.vcxitems*{76e0dc45-4744-4814-9ca3-039ebbfabdb0}*SharedItemsImports = 4
+		..\..\HelpersLib\HelpersLib.vcxitems*{c62111d4-fc99-40c3-a256-fbd9b577061a}*SharedItemsImports = 9
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86

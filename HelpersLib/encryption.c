@@ -33,10 +33,62 @@
 #include <stdbool.h>
 
 #include "encryption.h"
+#include "growablestring.h"
 /**
  * shift the char code into a number between 0-25
  */
 int shift(const char c);
+
+
+char *substitution(const char *cstr, const char chiperkey[], int decode)
+{
+    size_t cstrlen = strlen(cstr);
+    growable_string_t gstr = growable_string_new(cstrlen);
+    for (int i = 0; i < cstrlen; i++)
+    {
+        char lower = tolower(cstr[i]);
+        if (lower < 'a' || lower > 'z')
+        {
+            growable_string_append_char(gstr, cstr[i]);
+            continue;
+        }
+
+        int idx; 
+        if (decode == 1)
+        {
+            char *c = strchr(chiperkey, lower);
+            idx = c - chiperkey;
+        }
+        else
+        {
+            idx = lower - 'a';
+        }
+
+        if (isupper(cstr[i]))
+        {
+            if (decode ==  1)
+            {
+                growable_string_append_char(gstr, toupper('a' + idx));
+            }
+            else
+            {
+                growable_string_append_char(gstr, toupper(chiperkey[idx]));
+            }
+        }
+        else
+        {
+            if (decode == 1)
+            {
+                growable_string_append_char(gstr, 'a' + idx);
+            }
+            else
+            {
+                growable_string_append_char(gstr, chiperkey[idx]);
+            }
+        }
+    }
+    return gstr->s;
+}
 
 /**
  * vigenere encode/decode

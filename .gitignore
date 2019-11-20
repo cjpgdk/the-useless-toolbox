@@ -5,3 +5,4 @@
 *.vcxproj.*.txt
 !*.exe
 C/bin/
+C/*/*/*/*.enc

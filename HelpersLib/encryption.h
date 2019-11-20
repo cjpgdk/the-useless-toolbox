@@ -29,11 +29,13 @@
 #ifndef _ENC_HELPER_H
 #define _ENC_HELPER_H
 
+char *substitution(const char *cstr, const char chiperkey[], int decode);
+
 /**
  * vigenere encode/decode
  * returns a pointer to the encoded string
  */
-char* vigenere(const char *cstr, const char* keyword, int decode);
+char *vigenere(const char *cstr, const char* keyword, int decode);
 
 /**
  * vigenere decode : Shift char 'c' with key 'n'.

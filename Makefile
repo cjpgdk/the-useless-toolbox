@@ -1,7 +1,7 @@
 
 BASE_DIR=C
 
-all: mod caesar vigenere
+all: mod caesar vigenere substitution
 
 mod:
 	cd ${BASE_DIR}/mod && make
@@ -11,3 +11,6 @@ caesar:
 
 vigenere:
 	cd ${BASE_DIR}/vigenere && make
+
+substitution:
+	cd ${BASE_DIR}/substitution && make

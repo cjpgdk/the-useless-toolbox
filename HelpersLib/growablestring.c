@@ -50,10 +50,10 @@ int growable_string_append_char(growable_string_t dest, char c)
     }
     /* Append the character; it will overwrite the old NUL.  */
     dest->s[dest->length] = c;
-    //  Add a \0 at the end.
-    dest->s[dest->length + 1] = '\0';
     // increment
     dest->length += 1;
+    //  Add a \0 at the end.
+    dest->s[dest->length] = '\0';
     return 1;
 }
 

@@ -100,6 +100,7 @@ int main(int argc, char *argv[])
         fileptr = fopen(argv[2], "w");
         if (fileptr == NULL)
         {
+            growable_string_delete(gstr);
             printf("Could not open %s\n", argv[2]);
             return 3;
         }

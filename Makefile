@@ -1,10 +1,13 @@
 
 BASE_DIR=C
 
-all: mod caesar vigenere substitution
+all: tax mod caesar vigenere substitution
 
 mod:
 	cd ${BASE_DIR}/mod && make
+
+tax:
+	cd ${BASE_DIR}/tax && make
 
 caesar:
 	cd ${BASE_DIR}/caesar && make

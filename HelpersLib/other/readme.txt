@@ -1,0 +1,1 @@
+Stuff thats only needed on one platform to make an app work on Windows and Linux at the same time

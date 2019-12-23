@@ -6,3 +6,6 @@
 !*.exe
 C/bin/
 C/*/*/*/*.enc
+**/Debug
+**/Release
+*.vcxproj.user

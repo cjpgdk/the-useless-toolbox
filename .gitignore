@@ -9,3 +9,5 @@ C/*/*/*/*.enc
 **/Debug
 **/Release
 *.vcxproj.user
+ToolSet/*/*.exe.config
+ToolSet/*/*.pdb

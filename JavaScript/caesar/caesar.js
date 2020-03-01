@@ -1,5 +1,6 @@
 /**
  * Class CaesarCipher.
+ * @author Christian M. Jensen <cmj@cjpg.dk>
  */
 class CaesarCipher {
     /**
